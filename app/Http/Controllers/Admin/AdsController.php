@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Storage;
-use Config;
 use App\Repositories\AdRepository;
 
 
@@ -62,16 +60,17 @@ class AdsController extends Controller
     }
 
     //编辑状态
-    public function editStatus(Request $request, $id) {
+    public function editStatus(Request $request, $id)
+    {
         if (!$id) {
-           return resultInfo('参数错误', 0);
+            return resultInfo('参数错误', 0);
         }
         if ($request->isMethod('post')) {
             $this->validate($request, [
                 'is_show' => 'required|integer',
             ]);
             $edit_data = $request->all();
-            if( count($edit_data) != 1 || !isset($edit_data['is_show']) ) {
+            if (count($edit_data) != 1 || !isset($edit_data['is_show'])) {
                 return resultInfo('非法数据', 0);
             }
             return $this->ads->saveData($request, $id);

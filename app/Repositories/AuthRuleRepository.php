@@ -1,8 +1,6 @@
 <?php namespace App\Repositories;
 
 use App\Models\AdminAuthRule;
-use Storage;
-use Config;
 
 /**
  * Created by PhpStorm.
@@ -50,11 +48,18 @@ class AuthRuleRepository
     }
 
     //权限树
-    public function tree()
+    public function getTree()
     {
-        $this->auth_rule->select()->get();
+        $items = $this->auth_rule->orderBy('sort_order', 'desc')->orderBy('id', 'desc')->get()->toArray();
+        return getTree($items);
     }
 
+    //权限树html
+    public function getTreeHtml()
+    {
+        $items = $this->auth_rule->orderBy('sort_order', 'desc')->orderBy('id', 'desc')->get()->toArray();
+        return getTreeHtml($items);
+    }
 
     //删除
     public function destroy($id)
@@ -62,9 +67,9 @@ class AuthRuleRepository
         if (!$id) {
             return resultInfo('参数错误', 0);
         }
-        $itme = $this->auth_rule->whereIn('parent_id', $id)->count();
+        $itme = $this->auth_rule->whereIn('parent_id', [$id])->count();
         if ($itme) {
-            return resultInfo('删除失败：分类下级还存有分类', 0);
+            return resultInfo('删除失败：该分类存有子分类', 0);
         }
         $result = $this->auth_rule->destroy($id);
         if (!$result) {

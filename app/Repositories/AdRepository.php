@@ -25,7 +25,7 @@ class AdRepository
     {
         $where = 1;
         if ($request->key) {
-            $where = 'ad_name like \'%'.$request->key.'%\'';
+            $where = 'ad_name like \'%' . $request->key . '%\'';
         }
         return $this->ad->whereRaw($where)->orderBy('sort_order', 'desc')->orderBy('id', 'desc')->paginate($request->limit)->toArray();
     }

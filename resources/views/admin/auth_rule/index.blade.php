@@ -15,8 +15,9 @@
                 <div class="layui-inline">
                     <a class="layui-btn layui-btn-normal addNews_btn">添加权限</a>
                 </div>
-                <div class="layui-inline">
-                    <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+                <div class="layui-btn-group">
+                    <a class="layui-btn layui-btn-warm btn-expand">全部展开</a>
+                    <a class="layui-btn layui-btn-warm btn-fold">全部折叠</a>
                 </div>
             </form>
         </blockquote>
@@ -32,47 +33,67 @@
 
 @section('script')
     <script type="text/javascript">
-
-        layui.use(['form', 'layer', 'table', 'laytpl'], function () {
+        layui.config({
+            base: "/module/"
+        }).extend({
+            "treetable": "treetable-lay/treetable"
+        })
+        layui.use(['form', 'layer', 'table', 'laytpl', 'treetable'], function () {
             var form = layui.form
             layer = parent.layer === undefined ? layui.layer : top.layer,
                 $ = layui.jquery,
                 laytpl = layui.laytpl,
                 table = layui.table;
+            var treetable = layui.treetable;
 
             //设置ajax请求表头添加X-CSRF-TOKEN
             start_token();
 
-            //用户列表
-            var tableIns = table.render({
-                elem: '#list',
-                url: '{{url('admin/auth-rule/lists')}}',
-                cellMinWidth: 95,
-                page: true,
-                height: "full-125",
-                limits: [10, 20, 30, 40],
-                limit: 15,
-                id: "listTable",
-                cols: [[
-                    {type: 'checkbox', fixed: "left", width: 50},
-                    {field: 'title', title: '权限名称', minWidth: 100, align: 'left'},
-                    {
-                        field: 'rule_val', title: '权限标识', minWidth: 200, align: 'left', templet: function (d) {
-                            return '<a class="layui-blue">' + d.rule_val + '</a>';
-                        }
-                    },
-                    {
-                        field: 'icon', title: '图标', align: 'center', templet: function (d) {
-                            return '<i class="layui-icon" data-icon="' + d.icon + '">' + d.icon + '</i>';
-                        }
-                    },
-                    {field: 'parent_id', title: '上级id', minWidth: 100, align: 'center'},
-                    {field: 'sort_order', title: '排序', align: 'center', edit: 'text',},
-                    {field: 'updated_at', title: '修改时间', align: 'center', minWidth: 150},
-                    {field: 'created_at', title: '创建时间', align: 'center', minWidth: 150},
-                    {title: '操作', minWidth: 175, templet: '#listBar', fixed: "right", align: "center"}
-                ]]
-            });
+            //列表
+            var tableIns = function () {
+                layer.load(2);
+                treetable.render({
+                    treeColIndex: 1, //树形图标显示在第几列
+                    treeSpid: 0, //最上级的父级id
+                    treeIdName: 'id', //id字段的名称
+                    treePidName: 'parent_id', //pid字段的名称
+                    treeDefaultClose: true, //是否默认折叠
+                    elem: '#list',
+                    url: '{{url('admin/auth-rule/lists')}}',
+                    page: false,
+                    id: "listTable",
+                    cols: [[
+                        {type: 'numbers'},
+                        {field: 'title', title: '权限名称', align: 'left'},
+                        {
+                            field: 'rule_val', title: '权限标识', minWidth: 200, align: 'left', templet: function (d) {
+                                return '<a class="layui-blue">' + d.rule_val + '</a>';
+                            }
+                        },
+                        {
+                            field: 'menu_url', title: '菜单url', minWidth: 200, align: 'left', templet: function (d) {
+                                return '<a class="layui-blue">' + d.menu_url + '</a>';
+                            }
+                        },
+                        {
+                            field: 'icon', title: '图标', align: 'center', templet: function (d) {
+                                return '<i class="layui-icon" data-icon="' + d.icon + '">' + d.icon + '</i>';
+                            }
+                        },
+                        {
+                            field: 'type', title: '类型', align: 'center', templet: function (d) {
+                                return d.type == 0 ? '<span class="layui-badge-rim">菜单</span>' : '<span class="layui-badge layui-bg-gray">按钮</span>';
+                            }
+                        },
+                        {field: 'sort_order', title: '排序', align: 'center', edit: 'text'},
+                        {title: '操作', minWidth: 150, templet: '#listBar', align: "center"}
+                    ]],
+                    done: function () {
+                        layer.closeAll('loading');
+                    }
+                })
+            }
+            tableIns();
 
             //监听单元格编辑
             table.on('edit(list)', function (obj) {
@@ -86,6 +107,7 @@
                         layer.msg(res.msg, {icon: 2});
                         return false;
                     }
+                    tableIns();
                     layer.msg(res.msg, {icon: 1});
                 }).error(function () {
                     layer.msg('修改失败', {icon: 2});
@@ -96,25 +118,41 @@
 
             //搜索
             $(".search_btn").on("click", function () {
-                if ($(".searchVal").val() != '') {
-                    table.reload("listTable", {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        },
-                        where: {
-                            key: $(".searchVal").val()  //搜索的关键字
+                var keyword = $('.searchVal').val();
+                var searchCount = 0;
+                $('#list').next('.treeTable').find('.layui-table-body tbody tr td').each(function () {
+                    $(this).css('background-color', 'transparent');
+                    var text = $(this).text();
+                    if (keyword != '' && text.indexOf(keyword) >= 0) {
+                        $(this).css('background-color', 'rgba(250,230,160,0.5)');
+                        if (searchCount == 0) {
+                            treetable.expandAll('#list');
+                            $('html,body').stop(true);
+                            $('html,body').animate({scrollTop: $(this).offset().top - 150}, 500);
                         }
-                    })
-                } else {
-                    layer.msg("请输入搜索的内容");
+                        searchCount++;
+                    }
+                });
+                if (keyword == '') {
+                    layer.msg("请输入搜索内容", {icon: 5});
+                } else if (searchCount == 0) {
+                    layer.msg("没有匹配结果", {icon: 5});
                 }
+            });
+
+            $('.btn-expand').click(function () {
+                treetable.expandAll('#list');
+            });
+
+            $('.btn-fold').click(function () {
+                treetable.foldAll('#list');
             });
 
             function addData(url) {
                 var index = layer.open({
                     title: "编辑",
                     type: 2,
-                    area: ["360px", "385px"],
+                    area: ["360px", "500px"],
                     content: url,
                     success: function (layero, index) {
                         setTimeout(function () {
@@ -128,21 +166,6 @@
 
             $(".addNews_btn").click(function () {
                 addData('{{url('admin/auth-rule/create')}}');
-            })
-
-            //批量删除
-            $(".delAll_btn").click(function () {
-                var checkStatus = table.checkStatus('listTable'),
-                    data = checkStatus.data,
-                    newsId = [];
-                if (data.length > 0) {
-                    for (var i in data) {
-                        newsId.push(data[i].id);
-                    }
-                    del(newsId);
-                } else {
-                    layer.msg("请选择需要删除的权限");
-                }
             })
 
             //列表操作
@@ -170,8 +193,11 @@
                             layer.msg(res.msg, {icon: 2});
                             return false;
                         }
+                        tableIns();
                         layer.msg(res.msg, {icon: 1});
-                        tableIns.reload();
+                    }).error(function () {
+                        layer.close(index1);
+                        layer.msg('操作失败', {icon: 2});
                     })
                 })
             }

@@ -12,24 +12,43 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">上级权限</label>
+            <div class="layui-input-block">
+                <select name="parent_id" lay-search>
+                    <option value="0">顶级分类</option>
+                    @foreach ($auth_tree as $val)
+                        <option value="{{$val['id']}}" {{isset($data['parent_id']) && $data['parent_id'] == $val['id'] ? 'selected' : ''}} >{{$val['html']}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单url</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="menu_url" value="{{$data['menu_url'] or ''}}"
+                       lay-verify="required" placeholder="请输入菜单url"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">权限标识</label>
             <div class="layui-input-block">
                 <input type="text" class="layui-input" name="rule_val" value="{{$data['rule_val'] or ''}}"
-                       lay-verify="required" placeholder="请输入权限值"/>
+                       lay-verify="required" placeholder="请输入权限标识"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" value="0" title="菜单"
+                       lay-verify="required" {{isset($data['type']) && $data['type'] == 0 ? 'checked' : ''}}>
+                <input type="radio" name="type" value="1" title="按钮"
+                       lay-verify="required" {{isset($data['type']) && $data['type'] == 1 ? 'checked' : ''}}>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">图标</label>
             <div class="layui-input-block">
                 <input type="text" class="layui-input" name="icon" value="{{$data['icon'] or ''}}" placeholder="请输入图标"/>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">上级权限</label>
-            <div class="layui-input-block">
-                <select name="parent_id" lay-verify="">
-                    <option value="0">顶级分类</option>
-                </select>
             </div>
         </div>
         <div class="layui-form-item">

@@ -7,7 +7,7 @@ class AdminAuthRule extends Model
 
     protected $table = 'admin_auth_rule';
     //这些属性能被批量赋值
-    protected $fillable = ['title', 'rule_val', 'parent_id', 'sort_order', 'icon'];
+    protected $fillable = ['title', 'rule_val', 'parent_id', 'menu_url', 'type', 'sort_order', 'icon'];
 
 
 }

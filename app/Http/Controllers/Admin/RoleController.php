@@ -2,30 +2,28 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Storage;
-use Config;
-use App\Repositories\AdRepository;
+use App\Repositories\RoleRepository;
 
 
 class RoleController extends Controller
 {
 
     // 任务资源库的实例。
-    protected $ads;
+    protected $role;
 
-    public function __construct(AdRepository $ads)
+    public function __construct(RoleRepository $role)
     {
-        $this->ads = $ads;
+        $this->role = $role;
     }
 
     public function index()
     {
-        return view('admin.ads.index');
+        return view('admin.role.index');
     }
 
     public function lists(Request $request)
     {
-        $data = $this->ads->lists($request);
+        $data = $this->role->lists($request);
         return resultList($data['data'], $data['total']);
     }
 
@@ -33,14 +31,13 @@ class RoleController extends Controller
     {
         if ($request->isMethod('post')) {
             $this->validate($request, [
-                'ad_name' => 'required|max:50',
-                'ad_pic' => 'required',
-                'sort_order' => 'required|integer',
+                'role_name' => 'required|max:20',
+                'remark' => 'max:255',
             ]);
-            return $this->ads->saveData($request);
+            return $this->role->saveData($request);
         }
         $result['sub_url'] = $request->url();
-        return view('admin.ads.create_and_edit', $result);
+        return view('admin.role.create_and_edit', $result);
     }
 
     public function edit(Request $request, $id)
@@ -50,44 +47,58 @@ class RoleController extends Controller
         }
         if ($request->isMethod('post')) {
             $this->validate($request, [
-                'ad_name' => 'required|max:50',
-                'ad_pic' => 'required',
-                'sort_order' => 'required|integer',
+                'role_name' => 'required|max:20',
+                'remark' => 'max:255',
             ]);
-            return $this->ads->saveData($request, $id);
+            return $this->role->saveData($request, $id);
         }
-        $result['data'] = $this->ads->info($id);
+        $result['data'] = $this->role->info($id);
         $result['sub_url'] = $request->url();
-        return view('admin.ads.create_and_edit', $result);
+        return view('admin.role.create_and_edit', $result);
     }
 
     //编辑状态
-    public function editStatus(Request $request, $id) {
+    public function editRow(Request $request, $id)
+    {
         if (!$id) {
-           return resultInfo('参数错误', 0);
+            return resultInfo('参数错误', 0);
         }
         if ($request->isMethod('post')) {
             $this->validate($request, [
-                'is_show' => 'required|integer',
+                'status' => 'required|integer',
             ]);
             $edit_data = $request->all();
-            if( count($edit_data) != 1 || !isset($edit_data['is_show']) ) {
+            if (count($edit_data) != 1 || !isset($edit_data['status'])) {
                 return resultInfo('非法数据', 0);
             }
-            return $this->ads->saveData($request, $id);
+            return $this->role->saveData($request, $id);
         }
     }
 
-    //广告图上传
-    public function uploadPic(Request $request)
+    //权限关系编辑
+    public function access(Request $request, $id)
     {
-        return $this->ads->uploadPic($request);
+        if (!$id) {
+            abort(404);
+        }
+        if ($request->isMethod('post')) {
+            $this->validate($request, [
+                'status' => 'required|integer',
+            ]);
+            $edit_data = $request->all();
+            if (count($edit_data) != 1 || !isset($edit_data['status'])) {
+                return resultInfo('非法数据', 0);
+            }
+            return $this->role->saveData($request, $id);
+        }
+
+        return view('admin.role.access');
     }
 
     //删除
     public function destroy(Request $request)
     {
-        return $this->ads->destroy($request->id);
+        return $this->role->destroy($request->id);
     }
 
 }

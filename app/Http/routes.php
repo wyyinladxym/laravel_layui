@@ -62,7 +62,6 @@ Route::group(['prefix' => 'admin'], function () {
     //权限管理
     Route::get('auth-rule/index', 'Admin\AuthRuleController@index');
     Route::get('auth-rule/lists', 'Admin\AuthRuleController@lists');
-    Route::post('auth-rule/upload-pic', 'Admin\AuthRuleController@uploadPic');
     Route::post('auth-rule/edit-row/{id}', 'Admin\AuthRuleController@editRow')->where('id', '[0-9]+');
     Route::match(['get', 'post'], 'auth-rule/create', 'Admin\AuthRuleController@create');
     Route::match(['get', 'post'], 'auth-rule/edit/{id}', 'Admin\AuthRuleController@edit')->where('id', '[0-9]+');
@@ -70,6 +69,14 @@ Route::group(['prefix' => 'admin'], function () {
 
     //角色管理
     Route::get('role/index', 'Admin\RoleController@index');
+    Route::get('role/lists', 'Admin\RoleController@lists');
+    Route::post('role/edit-row/{id}', 'Admin\RoleController@editRow')->where('id', '[0-9]+');
+    Route::match(['get', 'post'], 'role/create', 'Admin\RoleController@create');
+    Route::match(['get', 'post'], 'role/edit/{id}', 'Admin\RoleController@edit')->where('id', '[0-9]+');
+    Route::match(['post'], 'role/destroy', 'Admin\RoleController@destroy');
+    Route::match(['get', 'post'], 'role/access/{id}', 'Admin\RoleController@access')->where('id', '[0-9]+');
+
+
 
 
 

@@ -23,7 +23,7 @@ class BrandRepository
     {
         $where = 1;
         if ($request->key) {
-            $where = 'brand_name like \'%'.$request->key.'%\'';
+            $where = 'brand_name like \'%' . $request->key . '%\'';
         }
         return $this->brand->whereRaw($where)->orderBy('sort_order', 'desc')->orderBy('id', 'desc')->paginate($request->limit)->toArray();
     }

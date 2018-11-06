@@ -43,7 +43,7 @@
             //设置ajax请求表头添加X-CSRF-TOKEN
             start_token();
 
-            //用户列表
+            //列表
             var tableIns = table.render({
                 elem: '#list',
                 url: '{{url('admin/brands/lists')}}',
