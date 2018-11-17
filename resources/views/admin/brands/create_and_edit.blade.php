@@ -3,23 +3,23 @@
 @section('title', '编辑品牌')
 
 @section('content')
-    <form class="layui-form" style="width:80%;" id="submit-form">
-        <div class="layui-form-item layui-row layui-col-xs12">
+    <form class="layui-form layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg4" id="submit-form">
+        <div class="layui-form-item">
             <label class="layui-form-label">品牌LOGO</label>
-            <div class="layui-upload-list thumbBox mag0 magt3 layui-col-xs8 layui-col-md4">
+            <div class="layui-upload-list thumbBox">
                 <img class="layui-upload-img thumbImg" src="{{$data['brand_logo'] or ''}}">
             </div>
             <button type="button" class="layui-btn layui-btn-sm layui-hide" id="upload">上传</button>
             <input type="hidden" name="brand_logo" value="{{$data['brand_logo'] or ''}}"/>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <label class="layui-form-label">品牌名称</label>
             <div class="layui-input-block">
                 <input type="text" name="brand_name" value="{{$data['brand_name'] or ''}}" class="layui-input"
                        lay-verify="required" placeholder="请输入品牌名称">
             </div>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <label class="layui-form-label">排序</label>
             <div class="layui-input-block">
                 <input type="text" name="sort_order" value="{{$data['sort_order'] or 0}}" class="layui-input"
@@ -27,7 +27,7 @@
                        placeholder="数值排序越大越靠前">
             </div>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">确定</button>
                 <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
@@ -44,8 +44,6 @@
                 upload = layui.upload,
                 $ = layui.jquery;
 
-            //设置ajax请求表头添加X-CSRF-TOKEN
-            start_token();
 
             form.on("submit(addUser)", function (data) {
                 //弹出loading

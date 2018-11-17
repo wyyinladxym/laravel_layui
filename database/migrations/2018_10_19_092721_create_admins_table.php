@@ -17,9 +17,9 @@ class CreateAdminsTable extends Migration {
             $table->engine = 'InnoDB';
             $table->increments('id')->comment('自增id');
             $table->string('username',20)->comment('用户名');
-            $table->string('nickname',20)->comment('昵称');
+            $table->string('nickname',20)->comment('真实姓名');
             $table->string('password',60)->comment('密码');
-            $table->string('email',60)->unique()->comment('邮箱');
+            $table->string('email',60)->comment('邮箱');
             $table->integer('role_id')->index()->comment('角色id');
 			$table->timestamps();
 		});

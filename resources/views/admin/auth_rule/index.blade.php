@@ -46,9 +46,6 @@
                 table = layui.table;
             var treetable = layui.treetable;
 
-            //设置ajax请求表头添加X-CSRF-TOKEN
-            start_token();
-
             //列表
             var tableIns = function () {
                 layer.load(2);
@@ -57,14 +54,14 @@
                     treeSpid: 0, //最上级的父级id
                     treeIdName: 'id', //id字段的名称
                     treePidName: 'parent_id', //pid字段的名称
-                    treeDefaultClose: true, //是否默认折叠
+                    treeDefaultClose: false, //是否默认折叠
                     elem: '#list',
                     url: '{{url('admin/auth-rule/lists')}}',
                     page: false,
                     id: "listTable",
                     cols: [[
                         {type: 'numbers'},
-                        {field: 'title', title: '权限名称', align: 'left'},
+                        {field: 'title', title: '权限名称', minWidth: 200, align: 'left'},
                         {
                             field: 'rule_val', title: '权限标识', minWidth: 200, align: 'left', templet: function (d) {
                                 return '<a class="layui-blue">' + d.rule_val + '</a>';

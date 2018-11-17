@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 
-class ArticlesController extends Controller
+class ArticlesController extends BaseController
 {
 
     public function __construct()
     {
-
+        parent::__construct();
     }
 
     public function index()
@@ -204,10 +204,11 @@ class ArticlesController extends Controller
                     }
                 ]
                 }';
-            return json_decode($data,true);
+        return json_decode($data, true);
     }
 
-    public function create() {
+    public function create()
+    {
         return view('admin.articles.create');
     }
 }

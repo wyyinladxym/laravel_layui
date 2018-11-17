@@ -1,6 +1,7 @@
 <?php namespace App\Repositories;
 
 use App\Models\AdminAuthRule;
+use Cache;
 
 /**
  * Created by PhpStorm.
@@ -48,9 +49,13 @@ class AuthRuleRepository
     }
 
     //权限树
-    public function getTree()
+    public function getTree($pid = null)
     {
-        $items = $this->auth_rule->orderBy('sort_order', 'desc')->orderBy('id', 'desc')->get()->toArray();
+        $where = 1;
+        if ($pid !== null) {
+            $where = 'parent_id = ' . $pid;
+        }
+        $items = $this->auth_rule->whereRaw($where)->orderBy('sort_order', 'desc')->orderBy('id', 'desc')->get()->toArray();
         return getTree($items);
     }
 

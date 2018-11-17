@@ -3,86 +3,94 @@
 @section('title', '管理员列表')
 
 @section('content')
-	<form class="layui-form">
-		<blockquote class="layui-elem-quote quoteBox">
-			<form class="layui-form">
-				<div class="layui-inline">
-					<div class="layui-input-inline">
-						<input type="text" class="layui-input searchVal" placeholder="请输入搜索的内容" />
-					</div>
-					<a class="layui-btn search_btn" data-type="reload">搜索</a>
-				</div>
-				<div class="layui-inline">
-					<a class="layui-btn layui-btn-normal addNews_btn">添加管理员</a>
-				</div>
-				<div class="layui-inline">
-					<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
-				</div>
-			</form>
-		</blockquote>
-		<table id="userList" lay-filter="userList"></table>
+    <form class="layui-form">
+        <blockquote class="layui-elem-quote quoteBox">
+            <form class="layui-form">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input searchVal" placeholder="请输入搜索的内容"/>
+                    </div>
+                    <a class="layui-btn search_btn" data-type="reload">搜索</a>
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn layui-btn-normal addNews_btn">添加管理员</a>
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+                </div>
+            </form>
+        </blockquote>
+        <table id="list" lay-filter="list"></table>
 
-		<!--操作-->
-		<script type="text/html" id="userListBar">
-			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">已启用</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
-		</script>
-	</form>
+        <!--操作-->
+        <script type="text/html" id="listBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+        </script>
+    </form>
 @endsection
 
 @section('script')
-	<script type="text/javascript">
+    <script type="text/javascript">
 
-        layui.use(['form','layer','table','laytpl'],function(){
-            var form = layui.form,
-                layer = parent.layer === undefined ? layui.layer : top.layer,
+        layui.use(['form', 'layer', 'table', 'laytpl'], function () {
+            var form = layui.form
+            layer = parent.layer === undefined ? layui.layer : top.layer,
                 $ = layui.jquery,
                 laytpl = layui.laytpl,
                 table = layui.table;
 
-            //用户列表
+            //列表
             var tableIns = table.render({
-                elem: '#userList',
-                url : '../../json/userList.json',
-                cellMinWidth : 95,
-                page : true,
-                height : "full-125",
-                limits : [10,15,20,25],
-                limit : 20,
-                id : "userListTable",
-                cols : [[
-                    {type: "checkbox", fixed:"left", width:50},
-                    {field: 'userName', title: '用户名', minWidth:100, align:"center"},
-                    {field: 'userEmail', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
-                            return '<a class="layui-blue" href="mailto:'+d.userEmail+'">'+d.userEmail+'</a>';
-                        }},
-                    {field: 'userSex', title: '用户性别', align:'center'},
-                    {field: 'userStatus', title: '用户状态',  align:'center',templet:function(d){
-                            return d.userStatus == "0" ? "正常使用" : "限制使用";
-                        }},
-                    {field: 'userGrade', title: '用户等级', align:'center',templet:function(d){
-                            if(d.userGrade == "0"){
-                                return "注册会员";
-                            }else if(d.userGrade == "1"){
-                                return "中级会员";
-                            }else if(d.userGrade == "2"){
-                                return "高级会员";
-                            }else if(d.userGrade == "3"){
-                                return "钻石会员";
-                            }else if(d.userGrade == "4"){
-                                return "超级会员";
-                            }
-                        }},
-                    {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150},
-                    {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
+                elem: '#list',
+                url: '{{url('admin/admins/lists')}}',
+                cellMinWidth: 95,
+                page: true,
+                height: "full-125",
+                limits: [10, 20, 30, 40],
+                limit: 15,
+                id: "listTable",
+                cols: [[
+                    {type: "checkbox", fixed: "left", width: 50},
+                    {
+                        field: 'admin_pic', title: '头像', width: 130, align: 'center', templet: function (d) {
+                            return '<image class="layui-blue" src="' + d.admin_pic + '" height="100%">';
+                        }
+                    },
+                    {field: 'username', title: '账号',  align: "left"},
+                    {field: 'role_name', title: '角色',  align: "left"},
+                    {
+                        field: 'status', title: '状态', align: 'center', templet: function (d) {
+                            return '<input type="checkbox" name="newStatus" lay-filter="newStatus" lay-skin="switch" data-id="' + d.id + '" lay-text="正常|冻结"  ' + (d.status ? 'checked' : '') + '>';
+                        }
+                    },
+                    {field: 'real_name', title: '真实姓名', align: "left"},
+                    {field: 'phone', title: '手机号码',  align: "left"},
+                    {field: 'updated_at', title: '修改时间', align: 'center', minWidth: 150},
+                    {field: 'created_at', title: '创建时间', align: 'center', minWidth: 150},
+                    {title: '操作', minWidth: 175, templet: '#listBar', fixed: "right", align: "center"}
                 ]]
             });
 
-            //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
-            $(".search_btn").on("click",function(){
-                if($(".searchVal").val() != ''){
-                    table.reload("newsListTable",{
+            //更新状态
+            form.on('switch(newStatus)', function (data) {
+                var index = layer.msg('修改中，请稍候', {icon: 16, time: false, shade: 0.8});
+                var id = $(data.elem).attr('data-id');
+                var status = data.elem.checked ? 1 : 0;
+                $.post("{{url('admin/admins/edit-row')}}/" + id + "", {'status': status}, function (res) {
+                    layer.close(index);
+                    if (res.status === 0) {
+                        layer.msg(res.msg, {icon: 2});
+                        return false;
+                    }
+                    top.layer.msg(res.msg, {icon: 1});
+                })
+            })
+
+            //搜索
+            $(".search_btn").on("click", function () {
+                if ($(".searchVal").val() != '') {
+                    table.reload("listTable", {
                         page: {
                             curr: 1 //重新从第 1 页开始
                         },
@@ -90,108 +98,83 @@
                             key: $(".searchVal").val()  //搜索的关键字
                         }
                     })
-                }else{
+                } else {
                     layer.msg("请输入搜索的内容");
                 }
             });
 
-            //添加用户
-            function addUser(edit){
+            function addData(url) {
                 var index = layui.layer.open({
-                    title : "添加用户",
-                    type : 2,
-                    content : '{{url('admin/admins/create')}}',
-                    success : function(layero, index){
-                        var body = layui.layer.getChildFrame('body', index);
-                        if(edit){
-                            body.find(".userName").val(edit.userName);  //登录名
-                            body.find(".userEmail").val(edit.userEmail);  //邮箱
-                            body.find(".userSex input[value="+edit.userSex+"]").prop("checked","checked");  //性别
-                            body.find(".userGrade").val(edit.userGrade);  //会员等级
-                            body.find(".userStatus").val(edit.userStatus);    //用户状态
-                            body.find(".userDesc").text(edit.userDesc);    //用户简介
-                            form.render();
-                        }
-                        setTimeout(function(){
-                            layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                    title: "编辑",
+                    type: 2,
+                    content: url,
+                    success: function (layero, index) {
+                        setTimeout(function () {
+                            layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
                                 tips: 3
                             });
-                        },500)
+                        }, 500)
                     }
                 })
                 layui.layer.full(index);
-                window.sessionStorage.setItem("index",index);
+                window.sessionStorage.setItem("index", index);
                 //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                $(window).on("resize",function(){
+                $(window).on("resize", function () {
                     layui.layer.full(window.sessionStorage.getItem("index"));
                 })
             }
-            $(".addNews_btn").click(function(){
-                addUser();
+
+            $(".addNews_btn").click(function () {
+                addData('{{url('admin/admins/create')}}');
             })
 
             //批量删除
-            $(".delAll_btn").click(function(){
-                var checkStatus = table.checkStatus('userListTable'),
+            $(".delAll_btn").click(function () {
+                var checkStatus = table.checkStatus('listTable'),
                     data = checkStatus.data,
                     newsId = [];
-                if(data.length > 0) {
+                if (data.length > 0) {
                     for (var i in data) {
-                        newsId.push(data[i].newsId);
+                        newsId.push(data[i].id);
                     }
-                    layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                        // $.get("删除文章接口",{
-                        //     newsId : newsId  //将需要删除的newsId作为参数传入
-                        // },function(data){
-                        tableIns.reload();
-                        layer.close(index);
-                        // })
-                    })
-                }else{
-                    layer.msg("请选择需要删除的用户");
+                    del(newsId);
+                } else {
+                    layer.msg("请选择需要删除的管理员");
                 }
             })
 
             //列表操作
-            table.on('tool(userList)', function(obj){
+            table.on('tool(list)', function (obj) {
                 var layEvent = obj.event,
                     data = obj.data;
 
-                if(layEvent === 'edit'){ //编辑
-                    addUser(data);
-                }else if(layEvent === 'usable'){ //启用禁用
-                    var _this = $(this),
-                        usableText = "是否确定禁用此用户？",
-                        btnText = "已禁用";
-                    if(_this.text()=="已禁用"){
-                        usableText = "是否确定启用此用户？",
-                            btnText = "已启用";
-                    }
-                    layer.confirm(usableText,{
-                        icon: 3,
-                        title:'系统提示',
-                        cancel : function(index){
-                            layer.close(index);
-                        }
-                    },function(index){
-                        _this.text(btnText);
-                        layer.close(index);
-                    },function(index){
-                        layer.close(index);
-                    });
-                }else if(layEvent === 'del'){ //删除
-                    layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
-                        // $.get("删除文章接口",{
-                        //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                        // },function(data){
-                        tableIns.reload();
-                        layer.close(index);
-                        // })
-                    });
+                if (layEvent === 'edit') { //编辑
+                    addData('{{url('admin/admins/edit')}}/' + data.id);
+                } else if (layEvent === 'del') { //删除
+                    del(data.id);
                 }
             });
 
+            //执行删除操作
+            function del(data_id) {
+                layer.confirm('确定删除选中的管理员？', {icon: 3, title: '提示信息'}, function (index) {
+                    layer.close(index);
+                    var index1 = layer.msg('删除中，请稍候', {icon: 16, time: false, shade: 0.8});
+                    $.post('{{url('admin/admins/destroy')}}', {
+                        id: data_id  //将需要删除的newsId作为参数传入
+                    }, function (res) {
+                        layer.close(index1);
+                        if (res.status === 0) {
+                            layer.msg(res.msg, {icon: 2});
+                            return false;
+                        }
+                        layer.msg(res.msg, {icon: 1});
+                        tableIns.reload();
+                    })
+                })
+            }
+
         })
 
-	</script>
+    </script>
 @endsection

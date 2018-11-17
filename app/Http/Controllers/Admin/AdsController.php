@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use App\Repositories\AdRepository;
 
 
-class AdsController extends Controller
+class AdsController extends BaseController
 {
 
     // 任务资源库的实例。
@@ -13,6 +13,7 @@ class AdsController extends Controller
 
     public function __construct(AdRepository $ads)
     {
+        parent::__construct();
         $this->ads = $ads;
     }
 

@@ -3,37 +3,37 @@
 @section('title', '编辑轮播图')
 
 @section('content')
-    <form class="layui-form" style="width:80%;" id="submit-form">
-        <div class="layui-form-item layui-row layui-col-xs12">
+    <form class="layui-form layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg4" id="submit-form">
+        <div class="layui-form-item">
             <label class="layui-form-label">轮播图</label>
-            <div class="layui-upload-list thumbBox mag0 magt3 layui-col-xs8 layui-col-md4">
+            <div class="layui-upload-list thumbBox">
                 <img class="layui-upload-img thumbImg" src="{{$data['ad_pic'] or ''}}">
             </div>
             <button type="button" class="layui-btn layui-btn-sm layui-hide" id="upload">上传</button>
             <input type="hidden" name="ad_pic" value="{{$data['ad_pic'] or ''}}"/>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <label class="layui-form-label">广告名称</label>
             <div class="layui-input-block">
                 <input type="text" name="ad_name" value="{{$data['ad_name'] or ''}}" class="layui-input"
                        lay-verify="required" placeholder="请输入广告名称">
             </div>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <label class="layui-form-label">跳转地址</label>
             <div class="layui-input-block">
                 <input type="text" name="ad_link" value="{{$data['ad_link'] or ''}}" class="layui-input"
                        placeholder="请输入跳转地址">
             </div>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <label class="layui-form-label">点击量</label>
             <div class="layui-input-inline">
                 <input type="text" name="click_count" value="{{$data['click_count'] or 0}}" class="layui-input"
                        placeholder="请输入点击量">
             </div>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <label class="layui-form-label">排序</label>
             <div class="layui-input-inline">
                 <input type="text" name="sort_order" value="{{$data['sort_order'] or 0}}" class="layui-input"
@@ -41,14 +41,14 @@
                        placeholder="数值排序越大越靠前">
             </div>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
                 <input type="checkbox" name="is_show" value="1" lay-text="显示|隐藏"
                        {{isset($data['is_show']) && $data['is_show'] ? 'checked' : ''}} lay-skin="switch">
             </div>
         </div>
-        <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">确定</button>
                 <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
@@ -64,9 +64,6 @@
             layer = parent.layer === undefined ? layui.layer : top.layer,
                 upload = layui.upload,
                 $ = layui.jquery;
-
-            //设置ajax请求表头添加X-CSRF-TOKEN
-            start_token();
 
             form.on("submit(addUser)", function (data) {
                 delete data.field.file_ad_pic;

@@ -41,9 +41,6 @@
                 laytpl = layui.laytpl,
                 table = layui.table;
 
-            //设置ajax请求表头添加X-CSRF-TOKEN
-            start_token();
-
             //列表
             var tableIns = table.render({
                 elem: '#list',
@@ -150,24 +147,7 @@
                 } else if (layEvent === 'del') { //删除
                     del(data.id);
                 } else if (layEvent === 'auth') { //权限
-                    var index = layui.layer.open({
-                        title: "编辑",
-                        type: 2,
-                        content: '{{url('admin/role/access')}}/' + data.id,
-                        success: function (layero, index) {
-                            setTimeout(function () {
-                                layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
-                                    tips: 3
-                                });
-                            }, 500)
-                        }
-                    })
-                    layui.layer.full(index);
-                    window.sessionStorage.setItem("index", index);
-                    //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-                    $(window).on("resize", function () {
-                        layui.layer.full(window.sessionStorage.getItem("index"));
-                    })
+                    addData('{{url('admin/role/access')}}/' + data.id)
                 }
             });
 

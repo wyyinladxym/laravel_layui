@@ -14,10 +14,15 @@ Route::group(['prefix' => 'admin'], function () {
     //后台首页
     Route::get('/', 'Admin\IndexController@index');
     Route::get('index/main', 'Admin\IndexController@main');
-    //登录页
+
+    //登录
     Route::get('login', 'Admin\LoginController@index');
+    Route::post('login', 'Admin\LoginController@login');
+    Route::get('login-out', 'Admin\LoginController@loginOut');
+
+
     //导航菜单
-    Route::get('navs', 'Admin\IndexController@navs');
+    Route::get('navs/{id}', 'Admin\IndexController@navs')->where('id', '[0-9]+');
 
     //轮播图管理
     Route::get('ads/index', 'Admin\AdsController@index');
@@ -40,6 +45,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('articles-cat/index', 'Admin\ArticlesCatController@index');
     Route::get('articles-cat/lists', 'Admin\ArticlesCatController@lists');
     Route::get('articles-cat/create', 'Admin\ArticlesCatController@create');
+
     //文章管理
     Route::get('articles/index', 'Admin\ArticlesController@index');
     Route::get('articles/lists', 'Admin\ArticlesController@lists');
@@ -48,14 +54,19 @@ Route::group(['prefix' => 'admin'], function () {
     //用户管理
     Route::get('users/index', 'Admin\UsersController@index');
     Route::get('users/create', 'Admin\UsersController@create');
+
     //系统设置
     Route::get('systems/index', 'Admin\SystemsController@index');
     Route::get('systems/logs', 'Admin\SystemsController@logs');
 
     //后台管理员
     Route::get('admins/index', 'Admin\adminsController@index');
+    Route::get('admins/lists', 'Admin\adminsController@lists');
+    Route::post('admins/edit-row/{id}', 'Admin\adminsController@editRow')->where('id', '[0-9]+');
     Route::match(['get', 'post'], 'admins/create', 'Admin\adminsController@create');
-    Route::match(['get', 'post'], 'admins/edit', 'Admin\adminsController@edit');
+    Route::match(['get', 'post'], 'admins/edit/{id}', 'Admin\adminsController@edit')->where('id', '[0-9]+');
+    Route::post('admins/destroy', 'Admin\adminsController@destroy');
+
     Route::get('admins/info', 'Admin\adminsController@info');
     Route::get('admins/change_pwd', 'Admin\adminsController@change_pwd');
 

@@ -1,12 +1,13 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 
-class UsersController extends Controller {
+class UsersController extends BaseController
+{
 
     public function __construct()
     {
-
+        parent::__construct();
     }
 
     public function index()

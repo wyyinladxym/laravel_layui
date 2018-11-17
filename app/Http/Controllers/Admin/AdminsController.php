@@ -1,15 +1,23 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
-use App\Models\Admin;
+use App\Repositories\AdminRepository;
+use App\Repositories\RoleRepository;
 
 
-class AdminsController extends Controller {
+class AdminsController extends BaseController
+{
 
-    public function __construct()
+    // 任务资源库的实例。
+    protected $admin;
+    protected $role;
+
+    public function __construct(AdminRepository $admin, RoleRepository $role )
     {
-
+        parent::__construct();
+        $this->admin = $admin;
+        $this->role = $role;
     }
 
     public function index()
@@ -17,33 +25,74 @@ class AdminsController extends Controller {
         return view('admin.admins.index');
     }
 
-    //个人资料
-    public function info()
+    public function lists(Request $request)
     {
-        return view('admin.admins.info');
-    }
-
-    //修改密码
-    public function change_pwd()
-    {
-        return view('admin.admins.change_pwd');
+        $data = $this->admin->lists($request);
+        return resultList($data['data'], $data['total']);
     }
 
     public function create(Request $request)
     {
-        $user = Admin::find(1);
-        var_dump($user);
-        if( $request->isMethod('post') ) {
-            var_dump($request);
-
+        if ($request->isMethod('post')) {
+            $this->validate($request, [
+                'username' => 'required|alpha_dash|max:20',
+                'password' => 'required|alpha_dash',
+                'role_id' => 'integer'
+            ]);
+            if (!$request->admin_pic) {
+                $request->offsetSet('admin_pic', '/images/admin/logo.png');
+            }
+            return $this->admin->saveData($request);
         }
-        return view('admin.admins.create');
+        $result['sub_url'] = $request->url();
+        $result['role_data'] = $this->role->getData();
+        return view('admin.admins.create_and_edit', $result);
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, $id)
     {
-        return view('admin.admins.edit');
+        if (!$id) {
+            abort(404);
+        }
+        if ($request->isMethod('post')) {
+            $this->validate($request, [
+                'username' => 'required|alpha_dash|max:20',
+                'password' => 'alpha_dash',
+                'role_id' => 'integer'
+            ]);
+            if (!$request->admin_pic) {
+                $request->offsetSet('admin_pic', '/images/admin/logo.png');
+            }
+            return $this->admin->saveData($request, $id);
+        }
+        $result['data'] = $this->admin->info($id);
+        $result['sub_url'] = $request->url();
+        $result['role_data'] = $this->role->getData();
+        return view('admin.admins.create_and_edit', $result);
     }
 
+    //编辑状态
+    public function editRow(Request $request, $id)
+    {
+        if (!$id) {
+            return resultInfo('参数错误', 0);
+        }
+        if ($request->isMethod('post')) {
+            $this->validate($request, [
+                'status' => 'required|integer',
+            ]);
+            $edit_data = $request->all();
+            if (count($edit_data) != 1 || !isset($edit_data['status'])) {
+                return resultInfo('非法数据', 0);
+            }
+            return $this->admin->saveData($request, $id);
+        }
+    }
+
+    //删除
+    public function destroy(Request $request)
+    {
+        return $this->admin->destroy($request->id);
+    }
 
 }

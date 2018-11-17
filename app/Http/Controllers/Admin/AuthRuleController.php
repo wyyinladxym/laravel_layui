@@ -1,17 +1,18 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use App\Repositories\AuthRuleRepository;
 
 
-class AuthRuleController extends Controller
+class AuthRuleController extends BaseController
 {
     // 任务资源库的实例。
     protected $auth_rule;
 
     public function __construct(AuthRuleRepository $auth_rule)
     {
+        parent::__construct();
         $this->auth_rule = $auth_rule;
     }
 

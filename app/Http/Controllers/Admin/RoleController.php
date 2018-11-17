@@ -1,19 +1,23 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use App\Repositories\RoleRepository;
+use App\Repositories\AuthRuleRepository;
 
 
-class RoleController extends Controller
+class RoleController extends BaseController
 {
 
     // 任务资源库的实例。
     protected $role;
+    protected $rule;
 
-    public function __construct(RoleRepository $role)
+    public function __construct(RoleRepository $role, AuthRuleRepository $rule)
     {
+        parent::__construct();
         $this->role = $role;
+        $this->rule = $rule;
     }
 
     public function index()
@@ -82,17 +86,16 @@ class RoleController extends Controller
             abort(404);
         }
         if ($request->isMethod('post')) {
-            $this->validate($request, [
-                'status' => 'required|integer',
-            ]);
             $edit_data = $request->all();
-            if (count($edit_data) != 1 || !isset($edit_data['status'])) {
+            if (count($edit_data) != 1 || !isset($edit_data['rule_id'])) {
                 return resultInfo('非法数据', 0);
             }
-            return $this->role->saveData($request, $id);
+            return $this->role->editRules($id, $edit_data['rule_id']);
         }
-
-        return view('admin.role.access');
+        $result['auth_rule'] = $this->rule->getTree();
+        $result['access'] = $this->role->getRules($id, 'id');
+        $result['role_id'] = $id;
+        return view('admin.role.access', $result);
     }
 
     //删除

@@ -33,7 +33,7 @@ function resultList($data = [], $count = 0, $code = 0, $msg = '')
     return $result;
 }
 
-//改变二位数组键名
+//改变二维数组键名
 function changeKey($data, $id_field = 'id')
 {
     $new_array = [];
@@ -52,22 +52,22 @@ function getTree($data = [], $p_field = 'parent_id')
     $tree = array(); //格式化好的树
     foreach ($items as $item) {
         if (isset($items[$item[$p_field]])) {
-            $items[$item[$p_field]]['children'][] = &$items[$item['id']];
+            $items[$item[$p_field]]['children'][$item['id']] = &$items[$item['id']];
         } else {
-            $tree[] = &$items[$item['id']];
+            $tree[$item['id']] = &$items[$item['id']];
         }
     }
     return $tree;
 }
 
 //递归方式获取树结构html
-function getTreeHtml(&$array, $p_id = 0, $level = 0, $sign = '-|', $p_field = 'parent_id')
+function getTreeHtml(&$array, $p_id = 0, $level = 0, $sign = '|----', $p_field = 'parent_id')
 {
     $arr = array();
     foreach ($array as $k => $v) {
         if ($v[$p_field] == $p_id) {
             $v['level'] = $level;
-            $html = $level ? str_repeat('&nbsp;&nbsp;&nbsp;', $level) . '|----' : '';
+            $html = $level ? str_repeat('&nbsp;&nbsp;&nbsp;', $level) . $sign : '';
             $v['html'] = $html . $v['title'];
             $arr[] = $v;
             unset($array[$k]);
@@ -75,5 +75,12 @@ function getTreeHtml(&$array, $p_id = 0, $level = 0, $sign = '-|', $p_field = 'p
         }
     }
     return $arr;
+}
+
+//加密
+function md6($value)
+{
+    $key = 'othello';
+    return md5(md5($value) . $key);
 }
 

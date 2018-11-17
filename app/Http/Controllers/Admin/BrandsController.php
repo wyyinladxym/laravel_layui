@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use Storage;
 use Config;
 use App\Repositories\BrandRepository;
 
-class BrandsController extends Controller
+class BrandsController extends BaseController
 {
 
     // 任务资源库的实例。
@@ -14,6 +14,7 @@ class BrandsController extends Controller
 
     public function __construct(BrandRepository $brands)
     {
+        parent::__construct();
         $this->brands = $brands;
     }
 
