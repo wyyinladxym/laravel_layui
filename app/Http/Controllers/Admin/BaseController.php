@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 class BaseController extends Controller
 {
     protected $admin_user = [];
-
-
+    
     public function __construct()
     {
         //权限中间件
