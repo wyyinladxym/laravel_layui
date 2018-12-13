@@ -127,14 +127,3 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
 function addTab(_this) {
     tab.tabAdd(_this);
 }
-
-//图片管理弹窗
-function showImg() {
-    $.getJSON('json/images.json', function (json) {
-        var res = json;
-        layer.photos({
-            photos: res,
-            anim: 5
-        });
-    });
-}

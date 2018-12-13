@@ -50,7 +50,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">确定</button>
+                <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addData">确定</button>
                 <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
             </div>
         </div>
@@ -65,7 +65,7 @@
                 upload = layui.upload,
                 $ = layui.jquery;
 
-            form.on("submit(addUser)", function (data) {
+            form.on("submit(addData)", function (data) {
                 delete data.field.file_ad_pic;
                 if (!data.field.is_show) {
                     data.field.is_show = 0

@@ -29,7 +29,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">确定</button>
+                <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addData">确定</button>
                 <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 $ = layui.jquery;
 
 
-            form.on("submit(addUser)", function (data) {
+            form.on("submit(addData)", function (data) {
                 //弹出loading
                 var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
                 // 实际使用时的提交信息

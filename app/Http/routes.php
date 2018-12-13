@@ -20,7 +20,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('login', 'Admin\LoginController@login');
     Route::get('login-out', 'Admin\LoginController@loginOut');
 
-
     //导航菜单
     Route::get('navs/{id}', 'Admin\IndexController@navs')->where('id', '[0-9]+');
 
@@ -44,12 +43,22 @@ Route::group(['prefix' => 'admin'], function () {
     //文章分类管理
     Route::get('articles-cat/index', 'Admin\ArticlesCatController@index');
     Route::get('articles-cat/lists', 'Admin\ArticlesCatController@lists');
-    Route::get('articles-cat/create', 'Admin\ArticlesCatController@create');
+    Route::post('articles-cat/edit-row/{id}', 'Admin\ArticlesCatController@editRow')->where('id', '[0-9]+');
+    Route::match(['get', 'post'], 'articles-cat/create', 'Admin\ArticlesCatController@create');
+    Route::match(['get', 'post'], 'articles-cat/edit/{id}', 'Admin\ArticlesCatController@edit')->where('id', '[0-9]+');
+    Route::match(['post'], 'articles-cat/destroy', 'Admin\ArticlesCatController@destroy');
 
     //文章管理
     Route::get('articles/index', 'Admin\ArticlesController@index');
     Route::get('articles/lists', 'Admin\ArticlesController@lists');
     Route::get('articles/create', 'Admin\ArticlesController@create');
+    Route::post('articles/edit-row/{id}', 'Admin\ArticlesController@editRow')->where('id', '[0-9]+');
+    Route::match(['get', 'post'], 'articles/create', 'Admin\ArticlesController@create');
+    Route::match(['get', 'post'], 'articles/edit/{id}', 'Admin\ArticlesController@edit')->where('id', '[0-9]+');
+    Route::post('articles/upload-pic', 'Admin\ArticlesController@uploadPic');
+    Route::post('articles/upload-video', 'Admin\ArticlesController@uploadVideo');
+    Route::match(['post'], 'articles/destroy', 'Admin\ArticlesController@destroy');
+
 
     //用户管理
     Route::get('users/index', 'Admin\UsersController@index');
@@ -86,9 +95,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::match(['get', 'post'], 'role/edit/{id}', 'Admin\RoleController@edit')->where('id', '[0-9]+');
     Route::match(['post'], 'role/destroy', 'Admin\RoleController@destroy');
     Route::match(['get', 'post'], 'role/access/{id}', 'Admin\RoleController@access')->where('id', '[0-9]+');
-
-
-
 
 
 });

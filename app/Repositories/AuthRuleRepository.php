@@ -1,7 +1,6 @@
 <?php namespace App\Repositories;
 
 use App\Models\AdminAuthRule;
-use Cache;
 
 /**
  * Created by PhpStorm.

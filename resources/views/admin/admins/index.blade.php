@@ -57,15 +57,15 @@
                             return '<image class="layui-blue" src="' + d.admin_pic + '" height="100%">';
                         }
                     },
-                    {field: 'username', title: '账号',  align: "left"},
-                    {field: 'role_name', title: '角色',  align: "left"},
+                    {field: 'username', title: '账号', align: "left"},
+                    {field: 'role_name', title: '角色', align: "left"},
                     {
                         field: 'status', title: '状态', align: 'center', templet: function (d) {
                             return '<input type="checkbox" name="newStatus" lay-filter="newStatus" lay-skin="switch" data-id="' + d.id + '" lay-text="正常|冻结"  ' + (d.status ? 'checked' : '') + '>';
                         }
                     },
                     {field: 'real_name', title: '真实姓名', align: "left"},
-                    {field: 'phone', title: '手机号码',  align: "left"},
+                    {field: 'phone', title: '手机号码', align: "left"},
                     {field: 'updated_at', title: '修改时间', align: 'center', minWidth: 150},
                     {field: 'created_at', title: '创建时间', align: 'center', minWidth: 150},
                     {title: '操作', minWidth: 175, templet: '#listBar', fixed: "right", align: "center"}

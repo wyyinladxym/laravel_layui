@@ -2,6 +2,7 @@
 
 use App\Models\Brand;
 use Storage;
+use Config;
 
 /**
  * Created by PhpStorm.
