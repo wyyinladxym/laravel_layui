@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\BaseController;
 
 class UsersController extends BaseController
 {
-
     public function __construct()
     {
         parent::__construct();
