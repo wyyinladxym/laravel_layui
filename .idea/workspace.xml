@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="60ff211e-bbfa-4e56-8d8b-5d94d3243f45" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -99,7 +100,7 @@
           <entry key="html" value="910" />
           <entry key="js" value="881" />
           <entry key="json" value="49" />
-          <entry key="php" value="41180" />
+          <entry key="php" value="41181" />
           <entry key="txt" value="39" />
         </counts>
       </usages-collector>
@@ -110,7 +111,7 @@
           <entry key="HTML" value="911" />
           <entry key="JSON" value="25" />
           <entry key="JavaScript" value="881" />
-          <entry key="PHP" value="26031" />
+          <entry key="PHP" value="26032" />
           <entry key="PLAIN_TEXT" value="95" />
           <entry key="composer.json" value="24" />
         </counts>
@@ -122,11 +123,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="95" column="5" lean-forward="true" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
+            <state relative-caret-position="184">
+              <caret line="8" column="1" selection-end-line="98" />
               <folding>
                 <element signature="e#45#91#0#PHP" expanded="true" />
               </folding>
@@ -169,11 +170,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="207">
-              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="e#45#81#0#PHP" expanded="true" />
               </folding>
@@ -304,7 +305,6 @@
         <option value="$PROJECT_DIR$/app/Models/ArticlesCat.php" />
         <option value="$PROJECT_DIR$/app/Models/Article.php" />
         <option value="$PROJECT_DIR$/app/Repositories/ArticlesCatRepository.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/app/Repositories/ArticleRepository.php" />
         <option value="$PROJECT_DIR$/public/.gitignore" />
@@ -313,6 +313,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/UsersController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/RoleController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php" />
       </list>
     </option>
   </component>
@@ -657,12 +658,12 @@
       <workItem from="1542071720131" duration="95706000" />
       <workItem from="1543212535422" duration="14380000" />
       <workItem from="1543280836648" duration="58528000" />
-      <workItem from="1544431473920" duration="9995000" />
+      <workItem from="1544431473920" duration="10603000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="667660000" />
+    <option name="totallyTimeSpent" value="668268000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1043,23 +1044,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="95" column="5" lean-forward="true" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
-          <folding>
-            <element signature="e#45#91#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AuthRuleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/SystemsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -1087,9 +1071,26 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="e#45#81#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AuthRuleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="1" selection-end-line="98" />
+          <folding>
+            <element signature="e#45#91#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

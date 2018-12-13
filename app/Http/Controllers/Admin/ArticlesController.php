@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class ArticlesController extends BaseController
 {
-
     // 任务资源库的实例。
     protected $articles;
     protected $articles_cat;
