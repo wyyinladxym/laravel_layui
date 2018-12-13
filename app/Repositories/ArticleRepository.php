@@ -126,9 +126,14 @@ class ArticleRepository
             return resultInfo('参数错误', 0);
         }
         $id = is_array($id) ? $id : func_get_args();
+        $file_path_arr = $this->article->whereIn('id', $id)->select('master_pic', 'video')->get()->toArray();
         $result = $this->article->destroy($id);
         if (!$result) {
             return resultInfo('删除失败', 0);
+        }
+        foreach ($file_path_arr as $val) {
+            @unlink(ltrim($val['master_pic'], '/'));
+            @unlink(ltrim($val['video'], '/'));
         }
         return resultInfo('删除成功', 1, $id);
     }
