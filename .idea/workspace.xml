@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="60ff211e-bbfa-4e56-8d8b-5d94d3243f45" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" afterDir="false" />
-    </list>
+    <list default="true" id="60ff211e-bbfa-4e56-8d8b-5d94d3243f45" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +63,7 @@
           <entry key="lock" value="3" />
           <entry key="log" value="1" />
           <entry key="md" value="1" />
-          <entry key="php" value="843" />
+          <entry key="php" value="844" />
           <entry key="pub" value="1" />
           <entry key="scss" value="2" />
           <entry key="txt" value="4" />
@@ -84,7 +81,7 @@
           <entry key="JavaScript" value="89" />
           <entry key="Less" value="3" />
           <entry key="Markdown" value="1" />
-          <entry key="PHP" value="645" />
+          <entry key="PHP" value="646" />
           <entry key="PLAIN_TEXT" value="28" />
           <entry key="SCSS" value="2" />
           <entry key="Vue.js" value="1" />
@@ -100,7 +97,7 @@
           <entry key="html" value="910" />
           <entry key="js" value="881" />
           <entry key="json" value="49" />
-          <entry key="php" value="41181" />
+          <entry key="php" value="41182" />
           <entry key="txt" value="39" />
         </counts>
       </usages-collector>
@@ -111,7 +108,7 @@
           <entry key="HTML" value="911" />
           <entry key="JSON" value="25" />
           <entry key="JavaScript" value="881" />
-          <entry key="PHP" value="26032" />
+          <entry key="PHP" value="26033" />
           <entry key="PLAIN_TEXT" value="95" />
           <entry key="composer.json" value="24" />
         </counts>
@@ -123,11 +120,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
               <caret line="8" column="1" selection-end-line="98" />
+              <folding>
+                <element signature="e#45#91#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AdminsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
               <folding>
                 <element signature="e#45#91#0#PHP" expanded="true" />
               </folding>
@@ -180,11 +189,6 @@
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/LoginController.php">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -280,7 +284,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/IndexController.php" />
         <option value="$PROJECT_DIR$/app/Repositories/RoleRepository.php" />
         <option value="$PROJECT_DIR$/app/Repositories/AdminRepository.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminsController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AuthRuleController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BrandsController.php" />
         <option value="$PROJECT_DIR$/public/js/admin/cache.js" />
@@ -314,6 +317,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/RoleController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticlesController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminsController.php" />
       </list>
     </option>
   </component>
@@ -658,12 +662,12 @@
       <workItem from="1542071720131" duration="95706000" />
       <workItem from="1543212535422" duration="14380000" />
       <workItem from="1543280836648" duration="58528000" />
-      <workItem from="1544431473920" duration="10603000" />
+      <workItem from="1544431473920" duration="10841000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="668268000" />
+    <option name="totallyTimeSpent" value="668506000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -692,8 +696,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4976" visible="true" weight="0.1422367" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5024" side_tool="true" weight="0.14440826" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49706668" visible="true" weight="0.1422367" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5029333" side_tool="true" visible="true" weight="0.1422367" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="12" weight="0.18969299" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1012,15 +1016,6 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Controller.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AdminsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#45#91#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BrandsController.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1089,6 +1084,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="8" column="1" selection-end-line="98" />
+          <folding>
+            <element signature="e#45#91#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AdminsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
           <folding>
             <element signature="e#45#91#0#PHP" expanded="true" />
           </folding>

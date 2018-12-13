@@ -8,7 +8,6 @@ use App\Repositories\RoleRepository;
 
 class AdminsController extends BaseController
 {
-
     // 任务资源库的实例。
     protected $admin;
     protected $role;
