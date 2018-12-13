@@ -8,7 +8,6 @@ use App\Repositories\AuthRuleRepository;
 
 class RoleController extends BaseController
 {
-
     // 任务资源库的实例。
     protected $role;
     protected $rule;
