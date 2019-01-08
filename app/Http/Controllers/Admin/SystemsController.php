@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BaseController;
 
 class SystemsController extends BaseController
+{
 
     public function __construct()
     {
