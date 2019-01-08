@@ -8,7 +8,6 @@ use App\Repositories\BrandRepository;
 
 class BrandsController extends BaseController
 {
-
     // 任务资源库的实例。
     protected $brands;
 
